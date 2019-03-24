@@ -26,6 +26,25 @@ namespace FaceRecognitionSGHSample
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        //Cognitive services subscription key
+        private const string subscriptionKey = "01ca1863c57541848912fd9daa8daf22";
+
+        //Cognitive services endpoint
+        private const string faceEndpoint =
+            "https://westeurope.api.cognitive.microsoft.com";
+
+        //FaceApi client
+        private readonly IFaceClient faceClient = new FaceClient(
+            new ApiKeyServiceClientCredentials(subscriptionKey),
+            new System.Net.Http.DelegatingHandler[] { });
+        
+        // The list of detected faces.
+        private IList<DetectedFace> faceList;
+        
+        // The list of descriptions for the detected faces.
+        private string[] faceDescriptions;
+
         public MainPage()
         {
             this.InitializeComponent();
