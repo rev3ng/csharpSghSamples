@@ -30,5 +30,10 @@ namespace FaceRecognitionSGHSample
         {
             this.InitializeComponent();
         }
+
+        private void LoadImageClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
