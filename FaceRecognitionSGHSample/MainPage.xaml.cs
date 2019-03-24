@@ -84,5 +84,44 @@ namespace FaceRecognitionSGHSample
             faceList = await UploadAndDetecFaces(file);
 
         }
+
+        private async Task<IList<DetectedFace>> UploadAndDetecFaces(StorageFile file)
+        {
+            // The list of Face attributes to return.
+            IList<FaceAttributeType> faceAttributes = new List<FaceAttributeType>();
+
+            var values = Enum.GetValues(typeof(FaceAttributeType)).Cast<FaceAttributeType>();
+            foreach (FaceAttributeType x in values)
+            {
+                faceAttributes.Add(x);
+            }
+
+            // Call the Face API.
+            try
+            {
+                using (Stream imageFileStream = await file.OpenStreamForReadAsync())
+                {
+                    // The second argument specifies to return the faceId, while
+                    // the third argument specifies not to return face landmarks.
+                    IList<DetectedFace> faceList =
+                        await faceClient.Face.DetectWithStreamAsync(
+                            imageFileStream, true, false, faceAttributes);
+                    return faceList;
+                }
+            }
+            // Catch and display Face API errors.
+            catch (APIErrorException f)
+            {
+                //MessageBox.Show(f.Message);
+                return new List<DetectedFace>();
+            }
+            // Catch and display all other errors.
+            catch (Exception e)
+            {
+                //MessageBox.Show(e.Message, "Error");
+                return new List<DetectedFace>();
+            }
+        }
+
     }
 }
