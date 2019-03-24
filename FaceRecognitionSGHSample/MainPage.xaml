@@ -9,6 +9,6 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <StackPanel>
-        <Button>Load image</Button>
+        <Button Click="LoadImageClick">Load image</Button>
     </StackPanel>
 </Page>

@@ -50,8 +50,28 @@ namespace FaceRecognitionSGHSample
             this.InitializeComponent();
         }
 
-        private void LoadImageClick(object sender, RoutedEventArgs e)
+        private async void LoadImageClick(object sender, RoutedEventArgs e)
         {
+            //Create new file picker for image loading
+            var picker = new FileOpenPicker();
+
+            //add jpg file filter
+            picker.FileTypeFilter.Add(".jpg");
+
+            //set start location
+            picker.SuggestedStartLocation = PickerLocationId.Desktop;
+
+            //open file picker and load file
+            StorageFile file = await picker.PickSingleFileAsync();
+
+            if (file == null)
+            {
+                return;
+            }
+
+            BitmapImage bitmap = new BitmapImage(new Uri(file.Path));
+
+            faceList = await UploadAndDetecFaces(file);
 
         }
     }
