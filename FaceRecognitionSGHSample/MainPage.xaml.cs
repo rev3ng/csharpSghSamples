@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 using Microsoft.Azure.CognitiveServices.Vision.Face;
@@ -45,9 +49,15 @@ namespace FaceRecognitionSGHSample
         // The list of descriptions for the detected faces.
         private string[] faceDescriptions;
 
+
         public MainPage()
         {
             this.InitializeComponent();
+
+            if (Uri.IsWellFormedUriString(faceEndpoint, UriKind.Absolute))
+            {
+                faceClient.Endpoint = faceEndpoint;
+            }
         }
 
         private async void LoadImageClick(object sender, RoutedEventArgs e)
