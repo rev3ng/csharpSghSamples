@@ -10,5 +10,6 @@
 
     <StackPanel>
         <Button Click="LoadImageClick">Load image</Button>
+        <Image x:Name="ImageDisplay"/>
     </StackPanel>
 </Page>

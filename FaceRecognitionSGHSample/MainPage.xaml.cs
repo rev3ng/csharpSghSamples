@@ -52,6 +52,7 @@ namespace FaceRecognitionSGHSample
 
         public MainPage()
         {
+
             this.InitializeComponent();
 
             if (Uri.IsWellFormedUriString(faceEndpoint, UriKind.Absolute))
@@ -79,11 +80,18 @@ namespace FaceRecognitionSGHSample
                 return;
             }
 
-            BitmapImage bitmap = new BitmapImage(new Uri(file.Path));
-
-            faceList = await UploadAndDetecFaces(file);
+            await ShowImage(file);
 
         }
+
+        private async Task ShowImage(StorageFile file)
+        {
+            BitmapImage bitmap = new BitmapImage();
+            await bitmap.SetSourceAsync(await file.OpenAsync(FileAccessMode.Read));
+
+            ImageDisplay.Source = bitmap;
+        }
+
 
         private async Task<IList<DetectedFace>> UploadAndDetecFaces(StorageFile file)
         {
